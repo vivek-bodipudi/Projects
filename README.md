@@ -1,6 +1,6 @@
 # IoT Enabled Landmine Detection Robotic Vehicle
 **Note:**   1. This is a prototype model. \
-\           2. The code is written in C++, The entire design is developed in fusion 360 CAD tool.              
+            2. The code is written in C++, The entire design is developed in fusion 360 CAD tool.              
 ## Problem Overview
 Developing an IoT-enabled robotic vehicle for efficient landmine detection and neutralization in hazardous environments, aiming to mitigate the risks and casualties associated with traditional detection methods. Challenges include achieving high detection accuracy while minimizing false positives, ensuring robust mobility over rugged terrains, implementing remote operation and real-time data processing through IoT connectivity, guaranteeing safety for operators and civilians, establishing reliable communication links, and optimizing cost-effectiveness for large-scale deployment. The solution must also adapt to various environmental conditions and incorporate fail-safe mechanisms to prevent accidental detonations or malfunctions.
 
