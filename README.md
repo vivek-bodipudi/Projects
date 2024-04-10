@@ -14,7 +14,7 @@ The proposed system, IoT-enabled robotic vehicle designed for efficient and safe
 **4. Real-time Data Processing:** Onboard processing capabilities algorithms to analyze sensor data in real-time, enhancing detection accuracy, and enabling prompt decision-making. \
 **5. Communication and Localization:** Reliable communication links established between the robotic vehicle and the control center, along with accurate localization techniques for real-time tracking and navigation. \
 **6. Long-range Communication:** Utilization of robust communication protocols and technologies, such as radio frequency (RF) or cellular connectivity, to ensure reliable data transmission over extended distances. \
-**7. User-friendly Interface:** Ergonomic design with intuitive controls and a user-friendly interface, enabling operators to easily navigate and manipulate the robotic vehicle's movements and functions. \
+**7. User-friendly Interface:** Ergonomic design with intuitive controls and a user-friendly interface, enabling operators to easily navigate and manipulate the robotic vehicle's movements and functions. 
 
 ## Scope
 * Accurate and efficient detection of landmines in hazardous environments.
