@@ -1,0 +1,269 @@
+#include<Servo.h>
+#define in1 A0
+#define in2 A1  
+#define in3 A2
+#define in4 A3
+Servo pan,tilt;
+
+int hb=6;
+int lb=5;
+int ang1=90;
+int ang2=90;
+void setup() {
+
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+  pinMode(hb, OUTPUT);
+  pinMode(lb, OUTPUT);
+  Serial.begin(4800);
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, LOW);
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, LOW);
+    pan.attach(3);
+    tilt.attach(4);
+    pan.write(90);
+    tilt.write(90);
+  
+  
+ 
+}
+void loop() {
+ 
+  if (Serial.available()) {   
+     
+      int x=Serial.read();
+   
+
+
+   if(x=='1')
+  digitalWrite(hb,1);
+   if(x=='2')
+  digitalWrite(hb,0);
+
+   if(x=='3')
+  digitalWrite(lb,1);
+   if(x=='4')
+  digitalWrite(lb,0);
+ 
+
+   if(x=='A')
+   {
+    if(ang1<175)
+    ang1=ang1+5;
+   }
+
+    if(x=='B')
+   {
+    if(ang1>5)
+    ang1=ang1-5;
+   }
+
+    if(x=='5')
+   {
+    if(ang2<175)
+    ang2=ang2+5;
+   }
+
+    if(x=='6')
+   {
+    if(ang2>5)
+    ang2=ang2-5;
+   }
+
+   
+  pan.write(ang1);
+ delay(20);
+  tilt.write(ang2);
+  
+  if (x=='0') {
+ 
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+ 
+    digitalWrite(in3, HIGH);
+    digitalWrite(in4, LOW);
+    Serial.println("Front");
+ 
+    
+  }
+  else if (x=='9') {
+ 
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+ 
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, HIGH);
+    Serial.println("Back");
+    
+   
+  }
+ 
+ 
+  else if (x=='8') {
+        digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+ 
+    digitalWrite(in3, HIGH);
+    digitalWrite(in4, LOW);
+    //Serial.println("Left");
+ 
+  }#include<Servo.h>
+#define in1 A0
+#define in2 A1  
+#define in3 A2
+#define in4 A3
+Servo pan,tilt;
+
+int hb=6;
+int lb=5;
+int ang1=90;
+int ang2=90;
+void setup() {
+
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+  pinMode(hb, OUTPUT);
+  pinMode(lb, OUTPUT);
+  Serial.begin(4800);
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, LOW);
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, LOW);
+    pan.attach(3);
+    tilt.attach(4);
+    pan.write(90);
+    tilt.write(90);
+  
+  
+ 
+}
+void loop() {
+ 
+  if (Serial.available()) {   
+     
+      int x=Serial.read();
+   
+
+
+   if(x=='1')
+  digitalWrite(hb,1);
+   if(x=='2')
+  digitalWrite(hb,0);
+
+   if(x=='3')
+  digitalWrite(lb,1);
+   if(x=='4')
+  digitalWrite(lb,0);
+ 
+
+   if(x=='A')
+   {
+    if(ang1<175)
+    ang1=ang1+5;
+   }
+
+    if(x=='B')
+   {
+    if(ang1>5)
+    ang1=ang1-5;
+   }
+
+    if(x=='5')
+   {
+    if(ang2<175)
+    ang2=ang2+5;
+   }
+
+    if(x=='6')
+   {
+    if(ang2>5)
+    ang2=ang2-5;
+   }
+
+   
+  pan.write(ang1);
+ delay(20);
+  tilt.write(ang2);
+  
+  if (x=='0') {
+ 
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+ 
+    digitalWrite(in3, HIGH);
+    digitalWrite(in4, LOW);
+    Serial.println("Front");
+ 
+    
+  }
+  else if (x=='9') {
+ 
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+ 
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, HIGH);
+    Serial.println("Back");
+    
+   
+  }
+ 
+ 
+  else if (x=='8') {
+        digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+ 
+    digitalWrite(in3, HIGH);
+    digitalWrite(in4, LOW);
+    //Serial.println("Left");
+ 
+  }
+  else if (x=='9') {
+    
+ digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+ 
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, HIGH);
+    Serial.println("Right");
+  }
+  
+  else
+  {
+    digitalWrite(in1,LOW);
+    digitalWrite(in2, LOW);
+ 
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, LOW); 
+    Serial.println("Stop");
+  }
+ 
+  }
+}
+  else if (x=='9') {
+    
+ digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+ 
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, HIGH);
+    Serial.println("Right");
+  }
+  
+  else
+  {
+    digitalWrite(in1,LOW);
+    digitalWrite(in2, LOW);
+ 
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, LOW); 
+    Serial.println("Stop");
+  }
+ 
+  }
+}

@@ -1,0 +1,167 @@
+#include <ArduinoWiFiServer.h>
+#include <BearSSLHelpers.h>
+#include <CertStoreBearSSL.h>
+#include <ESP8266WiFi.h>
+#include <ESP8266WiFiAP.h>
+#include <ESP8266WiFiGeneric.h>
+#include <ESP8266WiFiGratuitous.h>
+#include <ESP8266WiFiMulti.h>
+#include <ESP8266WiFiScan.h>
+#include <ESP8266WiFiSTA.h>
+#include <ESP8266WiFiType.h>
+#include <WiFiClient.h>
+#include <WiFiClientSecure.h>
+#include <WiFiClientSecureBearSSL.h>
+#include <WiFiServer.h>
+#include <WiFiServerSecure.h>
+#include <WiFiServerSecureBearSSL.h>
+#include <WiFiUdp.h>
+
+
+#include "ThingSpeak.h"
+int statusCode = 0;
+unsigned long lastTime = 0;
+unsigned long timerDelay = 16000;
+WiFiClient  client;
+const int FieldNumber1 = 1;
+#include<SoftwareSerial.h>
+SoftwareSerial mySerial(12,13);
+String strs[14]={"425088","N4P81ZPOMMN9D6LZ","0","0","SRC 24G","src@internet","0","0","0","0","0","0","0","0"};
+int StringCount = 0;
+int prv=0;
+int led=2;
+int buz=16;
+int kk=0;
+#include <TinyGPS.h>
+TinyGPS gps;
+float flat=0, flon=0;
+
+void read_gps()
+{
+  bool newData = false;
+  unsigned long chars;
+  unsigned short sentences, failed;
+  for (unsigned long start = millis(); millis() - start < 1000;)
+  {
+    while (Serial.available())
+    {
+      char c = Serial.read();
+      if (gps.encode(c)) 
+        newData = true;
+    }
+  }
+
+  if (newData)
+  {
+    
+    unsigned long age;
+    gps.f_get_position(&flat, &flon, &age);
+  }
+}
+
+
+
+
+
+
+void setup()
+{
+  WiFi.mode(WIFI_STA);
+  ThingSpeak.begin(client);
+  Serial.begin(9600);
+  pinMode(led,OUTPUT); 
+  pinMode(buz,OUTPUT);
+  delay(1000);
+  digitalWrite(led,1);
+}
+
+void loop()
+{
+  read_gps();
+  //----------------- Network -----------------//
+  if (WiFi.status() != WL_CONNECTED)
+  {
+    Serial.print(".");
+    delay(1000);
+    WiFi.begin(strs[4], strs[5]);
+      for(int kk=0;kk<10;kk++)
+      {
+        digitalWrite(led,0);
+        delay(300);
+        digitalWrite(led,1);
+        delay(300);
+      }
+   if(WiFi.status() == WL_CONNECTED)
+    Serial.println("ok");
+  }
+ 
+  //---------------- Channel 1 ----------------//
+  const char* string2 = strs[2].c_str();
+  const char* string3 = strs[3].c_str();
+  int temp = ThingSpeak.readLongField(atol(string2), FieldNumber1, string3);
+  statusCode = ThingSpeak.getLastReadStatus();
+  if (statusCode == 200)
+  {
+    if(temp !=prv)
+    {
+      prv=temp;
+       Serial.print(temp);
+    }
+   
+    
+  }
+  
+  delay(100);
+  
+  int metal=1024-analogRead(A0);
+  Serial.println(metal);
+  if(metal>500)
+  {
+digitalWrite(buz,1);
+ ThingSpeak.setField(1,String(metal));
+ ThingSpeak.setField(2, String(flat,4));
+ ThingSpeak.setField(3,  String(flon,4));
+
+ const char* string0 = strs[0].c_str();
+ const char* string1 = strs[1].c_str();
+ int x = ThingSpeak.writeFields(atol(string0), string1);
+ if(x == 200){
+  delay(10);
+  }
+else{
+  delay(10);
+  }
+  if(kk==0)
+  {
+    Serial.println("Sending SMS");
+  send_sms("Medical detected");
+  kk=1;
+  }
+  }
+
+ 
+}
+
+
+  void send_sms(String msg)
+{
+  
+read_gps();
+Serial.println("Sending SMS...");
+Serial.println("AT");    
+delay(1000);  
+Serial.println("ATE0");    
+delay(1000);  
+Serial.println("AT+CMGF=1");    
+delay(1000);  
+Serial.print("AT+CMGS=\"6309771402\"\r\n");// Replace x with mobile number
+delay(1000);
+Serial.println("Alert: Abnoral Sensor values Landmine is detected at:");
+Serial.println(msg);
+Serial.println("  LOCATION:");
+Serial.println("https://www.google.com/maps/search/?api=1&query=" + String(flat,6)+ "," + String(flon,6));
+delay(100);
+Serial.println((char)26);// ASCII code of CTRL+Z
+delay(5000);
+digitalWrite(buz,0);
+}
