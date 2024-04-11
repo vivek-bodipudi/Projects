@@ -1,0 +1,77 @@
+void setup() {
+  Serial.begin(4800);
+  delay(100);
+}
+void loop() {
+
+  int p1val=analogRead(A0);
+  int p2val=analogRead(A1);
+  
+  int x1val=analogRead(A2);
+  int y1val=analogRead(A3);
+
+  int x2val=analogRead(A4);
+  int y2val=analogRead(A5);
+
+  if(p1val<100)
+  {
+    Serial.print('1');
+  }
+  if(p1val>900)
+  {
+    Serial.print('2');
+  }
+
+   if(p2val<100)
+  {
+    Serial.print('3');
+  }
+  if(p2val>900)
+  {
+    Serial.print('4');
+  }
+
+    if(x1val<100)
+  {
+    Serial.print('5');
+  }
+
+    if(x1val>900)
+  {
+    Serial.print('6');
+  }
+
+    if(y1val<100)
+  {
+    Serial.print('7');
+  }
+
+   if(y1val>900)
+  {
+    Serial.print('8');
+  }
+
+    if(x2val<100)
+  {
+    Serial.print('9');
+  }
+
+
+// a b servo left
+    if(x2val>900)
+  {
+    Serial.print('0');
+  }
+
+   if(y2val<100)
+  {
+    Serial.print('A');
+  }
+
+    if(y2val>900)
+  {
+    Serial.print('B');
+  }
+  
+  delay(300);
+}
